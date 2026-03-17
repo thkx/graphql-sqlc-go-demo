@@ -1,0 +1,64 @@
+type User implements UserIntel {
+	id: ID!
+	name: String!
+	email: String!
+	password: String!
+	avatar: String!
+	gender: String!
+	bio: String!
+	created_at: String!
+	updated_at: String!
+}
+
+input UserIDInput {
+	id: ID!
+}
+
+input UserEmailInput {
+	email: String!
+}
+
+input UserNameInput {
+	name: String!
+}
+
+input CreateUserInput {
+	name: String!
+	email: String!
+	password: String!
+}
+
+input UpdateUserInput {
+	id: ID!
+	name: String
+	email: String
+	password: String
+	avatar: String
+	gender: String
+	bio: String
+}
+
+input LoginInput {
+	email: String!
+	password: String!
+}
+
+type Login {
+	token: String!
+	user: User!
+}
+
+extend type Query {
+	users: [User!] @requiresAuth
+  	getUserById(input: UserIDInput): User! @requiresAuth
+}
+
+extend type Mutation {
+	createUser(input: CreateUserInput!): User! @requiresAuth
+	updateUser(input: UpdateUserInput!): User! @requiresAuth
+	deleteUser(input: UserIDInput!): ID! @requiresAuth
+	login(input: LoginInput): Login!
+}
+
+# 定义权限注解（gqlgen 识别）
+directive @requiresAuth on FIELD_DEFINITION

@@ -1,0 +1,44 @@
+type Post implements PostIntel {
+    id: ID!
+    title: String!
+    content: String!
+    pv: Int!
+    # user_id: String!
+    created_at: String!
+	updated_at: String!
+    author: User!
+}
+
+input PostIDInput {
+    id: ID!
+}
+
+input PostTitleInput {
+    title: String!
+}
+
+input CreatePostInput {
+    title: String!
+    content: String!
+    pv: Int!
+}
+
+input UpdatePostInput {
+    id: ID!
+    title: String
+    content: String
+    pv: Int
+}
+
+extend type Query {
+	posts: [Post!]
+  	getPostById(input: PostIDInput!): Post!
+    getPostByUserID(input: UserIDInput!): [Post!]!
+    getPostByTitle(input: PostTitleInput!): [Post!]!
+}
+
+extend type Mutation {
+	createPost(input: CreatePostInput!): Post! @requiresAuth
+	updatePost(input: UpdatePostInput!): Post! @requiresAuth
+	deletePost(input: PostIDInput!): ID! @requiresAuth
+}

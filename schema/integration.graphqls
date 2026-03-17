@@ -1,0 +1,21 @@
+type Indicator implements IndicatorIntel {
+	id: ID!
+	indicator: String!
+	indicatorType: String!
+	metaSource: String!
+}
+
+
+extend type Query {
+	indicators: [Indicator!]!
+}
+
+input IndicatorInput {
+	indicator: String!
+	indicatorType: String!
+	metaSource: String!
+}
+
+extend type Mutation {
+	createIndicator(input: IndicatorInput!): Indicator! @requiresAuth
+}

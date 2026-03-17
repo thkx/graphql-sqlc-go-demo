@@ -1,0 +1,39 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Comment implements CommentIntel {
+	id: ID!
+    user_id: String!
+    content: String!
+    post_id: String!
+    created_at: String!
+	updated_at: String!
+	author: User!
+}
+
+type Query {
+	comments: [Comment!]! @requiresAuth
+	getCommentByID(input: CommentIDInput!): Comment!
+	getCommentsByPostID(input: PostIDInput): [Comment!]!
+}
+
+input CreateCommentInput {
+    content: String!
+    post_id: String!
+}
+
+input CommentIDInput {
+	id: ID!
+}
+
+input UpdateCommentInput {
+	id: ID!
+    content: String!
+}
+
+type Mutation {
+	createComment(input: CreateCommentInput!): Comment! @requiresAuth
+	updateComment(input: UpdateCommentInput!): Comment! @requiresAuth
+	deleteComment(input: CommentIDInput!): ID! @requiresAuth
+}
