@@ -1,0 +1,39 @@
+interface UserIntel {
+	id: ID!
+	name: String!
+	email: String!
+	password: String!
+	avatar: String!
+	gender: String!
+	bio: String!
+	created_at: String!
+	updated_at: String!
+}
+
+interface PostIntel {
+	id: ID!
+    title: String!
+    content: String!
+    pv: Int!
+    # user_id: String!
+    created_at: String!
+	updated_at: String!
+}
+
+interface CommentIntel {
+	id: ID!
+    # user_id: String!
+    content: String!
+    post_id: String!
+    created_at: String!
+	updated_at: String!
+}
+
+interface IndicatorIntel {
+	id: ID!
+	indicator: String!
+	indicatorType: String!
+	metaSource: String!
+}
+
+
