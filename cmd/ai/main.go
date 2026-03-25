@@ -9,19 +9,30 @@ import (
 	"strings"
 
 	"github.com/tmc/langchaingo/chains"
+	"github.com/tmc/langchaingo/documentloaders"
 	"github.com/tmc/langchaingo/llms/ollama"
 	"github.com/tmc/langchaingo/memory"
 )
 
 func main() {
+	ctx := context.Background()
 
+	file, err := os.Open("./test.pdf")
+	if err != nil {
+		log.Panicln(err)
+	}
+
+	docs := documentloaders.NewPDF(file, 100)
+	documents, err := docs.Load(ctx)
+	if err != nil {
+		log.Panicln(err)
+	}
+	fmt.Println(documents)
 	// AgentNode()
 
 	// stringPromptTemplates()
 
 	// OllamaPrompt()
-
-	ctx := context.Background()
 
 	llm, err := ollama.New(
 		ollama.WithModel("gemma3:270m"),
